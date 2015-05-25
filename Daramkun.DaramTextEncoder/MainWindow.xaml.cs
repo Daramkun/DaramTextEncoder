@@ -135,6 +135,12 @@ namespace Daramkun.DaramTextEncoder
 
 		private void Button_Apply_Click ( object sender, RoutedEventArgs e )
 		{
+			if ( comboBoxOriginal.SelectedIndex == -1 || comboBoxTarget.SelectedIndex == -1 )
+			{
+				SimpleErrorMessage ( "인코딩을 선택해주세요." );
+				return;
+			}
+
 			foreach ( string filename in fileCollection )
 			{
 				string dest = ( checkBoxOverwrite.IsChecked.Value ) ? filename :
