@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.DaramTextEncoder", "Daramkun.DaramTextEncoder\Daramkun.DaramTextEncoder.csproj", "{23A4EA46-E1F1-43E4-AE7C-04807CEB0ACE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Daram Text Encoder", "Daram Text Encoder", "{6E73CC29-A29B-4BC0-993A-B6A4DC930422}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23A4EA46-E1F1-43E4-AE7C-04807CEB0ACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23A4EA46-E1F1-43E4-AE7C-04807CEB0ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23A4EA46-E1F1-43E4-AE7C-04807CEB0ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23A4EA46-E1F1-43E4-AE7C-04807CEB0ACE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{23A4EA46-E1F1-43E4-AE7C-04807CEB0ACE} = {6E73CC29-A29B-4BC0-993A-B6A4DC930422}
+	EndGlobalSection
+EndGlobal

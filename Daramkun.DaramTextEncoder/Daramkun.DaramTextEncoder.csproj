@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B1536D6D-CCF3-4C48-BF7A-0D796D0B2B0A}</ProjectGuid>
+    <ProjectGuid>{23A4EA46-E1F1-43E4-AE7C-04807CEB0ACE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DaramTextEncoder</RootNamespace>
-    <AssemblyName>DaramTextEncoder</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>Daramkun.DaramTextEncoder</RootNamespace>
+    <AssemblyName>Daramkun.DaramTextEncoder</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -25,6 +23,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,13 +34,21 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>MainIcon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\ProgramIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>DaramTextEncoder.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -54,6 +62,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TaskDialog\CommandLink.xaml.cs">
+      <DependentUpon>CommandLink.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TaskDialog\Converters.cs" />
+    <Compile Include="TaskDialog\NativeMethods.cs" />
+    <Compile Include="TaskDialog\RelayCommand.cs" />
+    <Compile Include="TaskDialog\Resources.Designer.cs" />
+    <Compile Include="TaskDialog\SafeNativeMethods.cs" />
+    <Compile Include="TaskDialog\TaskDialog.cs" />
+    <Compile Include="TaskDialog\TaskDialog.xaml.cs">
+      <DependentUpon>TaskDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TaskDialog\TaskDialogEvents.cs" />
+    <Compile Include="TaskDialog\TaskDialogInterop.cs" />
+    <Compile Include="TaskDialog\TaskDialogResult.cs" />
+    <Compile Include="TaskDialog\TaskDialogTypes.cs" />
+    <Compile Include="TaskDialog\TaskDialogViewModel.cs" />
+    <Compile Include="TaskDialog\UnsafeNativeMethods.cs" />
+    <Compile Include="TaskDialog\VistaActiveTaskDialog.cs" />
+    <Compile Include="ValueConverters\NameValueConverter.cs" />
+    <Compile Include="ValueConverters\PathValueConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -66,6 +95,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TaskDialog\CommandLink.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskDialog\ResourceDictionaries\Common.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskDialog\TaskDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -85,6 +126,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="TaskDialog\Resources.resx" />
+    <None Include="DaramTextEncoder.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -95,7 +138,33 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="MainIcon.ico" />
+    <Resource Include="Resources\ProgramIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\accept.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="TaskDialog\Resources\cmdarr1.png" />
+    <Resource Include="TaskDialog\Resources\cmdarr2.png" />
+    <Resource Include="TaskDialog\Resources\cmdarr3.png" />
+    <Resource Include="TaskDialog\Resources\exparr-down1.bmp" />
+    <Resource Include="TaskDialog\Resources\exparr-down2.bmp" />
+    <Resource Include="TaskDialog\Resources\exparr-down3.bmp" />
+    <Resource Include="TaskDialog\Resources\exparr-up1.bmp" />
+    <Resource Include="TaskDialog\Resources\exparr-up2.bmp" />
+    <Resource Include="TaskDialog\Resources\exparr-up3.bmp" />
+    <Resource Include="TaskDialog\Resources\shield-16.png" />
+    <Resource Include="TaskDialog\Resources\shield-32.png" />
+    <Content Include="TaskDialog\TaskDialog.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
