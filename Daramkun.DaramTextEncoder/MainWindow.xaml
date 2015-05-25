@@ -17,7 +17,7 @@
 		</Grid.RowDefinitions>
 		
 		<ToolBarTray>
-			<ToolBar>
+			<ToolBar ToolBarTray.IsLocked="True">
 				<Button Click="Button_OpenFiles_Click">
 					<Image Source="Resources/folder.png" />
 				</Button>

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,6 +31,10 @@ namespace Daramkun.DaramTextEncoder
 		public MainWindow ()
 		{
 			InitializeComponent ();
+
+			Version currentVersion = Assembly.GetEntryAssembly ().GetName ().Version;
+			Title = string.Format ( "{0} - v{1}.{2}{3}0", Title,
+				currentVersion.Major, currentVersion.Minor, currentVersion.Build );
 
 			fileCollection = new ObservableCollection<string> ();
 			listViewFiles.ItemsSource = fileCollection;
