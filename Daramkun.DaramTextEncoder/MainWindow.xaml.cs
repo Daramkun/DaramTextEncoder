@@ -85,7 +85,7 @@ namespace Daramkun.DaramTextEncoder
 			config.Title = "다람 텍스트 인코더";
 			config.MainInstruction = "작업이 완료되었습니다.";
 			config.Content = message;
-			config.MainIcon = VistaTaskDialogIcon.Error;
+			config.MainIcon = VistaTaskDialogIcon.Information;
 			config.CustomButtons = new [] { "확인(&O)" };
 			TaskDialog.Show ( config );
 		}
@@ -145,8 +145,8 @@ namespace Daramkun.DaramTextEncoder
 			{
 				string dest = ( checkBoxOverwrite.IsChecked.Value ) ? filename :
 					System.IO.Path.Combine ( System.IO.Path.GetDirectoryName ( filename ), System.IO.Path.GetFileNameWithoutExtension ( filename ) + "_" +
-					comboBoxTarget.SelectedItem as string + System.IO.Path.GetExtension ( filename ) );
-				string original = File.ReadAllText ( filename, Encoding.GetEncoding ( comboBoxOriginal.SelectedItem as string ) );
+					( comboBoxTarget.SelectedItem as Encoding ).WebName + System.IO.Path.GetExtension ( filename ) );
+				string original = File.ReadAllText ( filename, comboBoxOriginal.SelectedItem as Encoding );
 				using ( Stream stream = File.Create ( dest ) )
 				{
 					if ( checkBoxBOM.IsChecked.Value )
