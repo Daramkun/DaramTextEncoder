@@ -62,6 +62,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FindCorrectEncodingWindow.xaml.cs">
+      <DependentUpon>FindCorrectEncodingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TaskDialog\CommandLink.xaml.cs">
       <DependentUpon>CommandLink.xaml</DependentUpon>
     </Compile>
@@ -83,6 +86,11 @@
     <Compile Include="TaskDialog\VistaActiveTaskDialog.cs" />
     <Compile Include="ValueConverters\NameValueConverter.cs" />
     <Compile Include="ValueConverters\PathValueConverter.cs" />
+    <Compile Include="ValueConverters\ToUpperValueConverter.cs" />
+    <Page Include="FindCorrectEncodingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -164,6 +172,7 @@
     <Resource Include="TaskDialog\Resources\exparr-up3.bmp" />
     <Resource Include="TaskDialog\Resources\shield-16.png" />
     <Resource Include="TaskDialog\Resources\shield-32.png" />
+    <Resource Include="Resources\page_white_code_red.png" />
     <Content Include="TaskDialog\TaskDialog.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,115 @@
+﻿<Window x:Class="Daramkun.DaramTextEncoder.FindCorrectEncodingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Daramkun.DaramTextEncoder"
+		xmlns:vc="clr-namespace:Daramkun.DaramTextEncoder.ValueConverters"
+        mc:Ignorable="d"
+        Title="올바른 인코딩 찾기(β)" Height="460" Width="448" WindowStartupLocation="CenterScreen" Icon="Resources/page_white_code_red.png">
+	<Window.Resources>
+		<vc:ToUpperValueConverter x:Key="toUpperValueConverter" />
+	</Window.Resources>
+	
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="28" />
+			<RowDefinition Height="28" />
+			<RowDefinition Height="28" />
+			<RowDefinition Height="28" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Row="0" VerticalAlignment="Center">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="86" />
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<RadioButton Name="radioSelectFile" GroupName="method" Content="파일 선택" />
+			<ComboBox Name="comboBoxEncoding" Grid.Column="1">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Path=WebName, Converter={StaticResource toUpperValueConverter}}" />
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+			<TextBox Name="textBoxFilename" Grid.Column="2" IsReadOnly="True" MouseUp="TextBox_MouseUp" />
+		</Grid>
+		
+		<Grid Grid.Row="1" VerticalAlignment="Center">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="86" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<RadioButton Name="radioUserInput" GroupName="method" Content="직접 입력" IsChecked="True" />
+			<TextBox Name="textBoxUserInput" Grid.Column="1" />
+		</Grid>
+
+		<Grid Grid.Row="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="86" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<TextBlock Text="걸러오기: " VerticalAlignment="Center" HorizontalAlignment="Right" />
+			<StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
+				<CheckBox Name="filterAll" Content="모든 문자" Margin="0,0,5,0" />
+				<CheckBox Name="filterKorean" Content="한글" Margin="0,0,5,0" IsChecked="True" />
+				<CheckBox Name="filterHanja" Content="한자" Margin="0,0,5,0" IsChecked="True" />
+				<CheckBox Name="filterKana" Content="가나" Margin="0,0,5,0" IsChecked="True" />
+				<CheckBox Name="filterArab" Content="아랍" Margin="0,0,5,0" IsChecked="True" />
+			</StackPanel>
+		</Grid>
+
+		<Button Content="인코딩" Grid.Row="3" VerticalAlignment="Center" Click="Button_Click" />
+		
+		<ListView Name="listViewEncoded" Grid.Row="4">
+			<ListView.ItemContainerStyle>
+				<Style TargetType="ListViewItem">
+					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+				</Style>
+			</ListView.ItemContainerStyle>
+
+			<ListView.View>
+				<GridView>
+					<GridView.ColumnHeaderTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}" Margin="0,4,0,4" />
+						</DataTemplate>
+					</GridView.ColumnHeaderTemplate>
+
+					<GridViewColumn Width="92">
+						<GridViewColumnHeader Content="디코딩 방법" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Grid HorizontalAlignment="Stretch">
+									<TextBlock Foreground="DarkSlateBlue" Text="{Binding DecodingMethod}" />
+								</Grid>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="92">
+						<GridViewColumnHeader Content="인코딩 방법" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Grid HorizontalAlignment="Stretch">
+									<TextBlock Foreground="DarkSlateBlue" Text="{Binding EncodingMethod}" />
+								</Grid>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+					<GridViewColumn Width="180">
+						<GridViewColumnHeader Content="인코딩 결과" />
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Grid HorizontalAlignment="Stretch">
+									<TextBox Cursor="Arrow" Foreground="DarkSlateBlue" Text="{Binding Encoded}" IsReadOnly="True" />
+								</Grid>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+				</GridView>
+			</ListView.View>
+		</ListView>
+	</Grid>
+</Window>

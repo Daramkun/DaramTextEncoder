@@ -26,6 +26,30 @@ namespace Daramkun.DaramTextEncoder
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		public static List<Encoding> Encodings { get; private set; }
+		static MainWindow ()
+		{
+			Encodings = new List<Encoding> ();
+			foreach ( var encoding in Encoding.GetEncodings () )
+			{
+				var enc = Encoding.GetEncoding ( encoding.Name );
+				if ( Encodings.Contains ( enc ) ) continue;
+				Encodings.Add ( enc );
+			}
+			Encodings.Sort ( ( enc1, enc2 ) =>
+			{
+				var enc1name = enc1.WebName.ToLower ();
+				var enc2name = enc2.WebName.ToLower ();
+				var enc1subs = enc1name.Substring ( 0, 3 );
+				var enc2subs = enc2name.Substring ( 0, 3 );
+				if ( enc1subs == "utf" && enc2subs != "utf" )
+					return -1;
+				else if ( enc1subs != "utf" && enc2subs == "utf" )
+					return 1;
+				return enc1.WebName.ToLower ().CompareTo ( enc2.WebName.ToLower () );
+			} );
+		}
+
 		ObservableCollection<string> fileCollection;
 
 		public MainWindow ()
@@ -38,14 +62,9 @@ namespace Daramkun.DaramTextEncoder
 
 			fileCollection = new ObservableCollection<string> ();
 			listViewFiles.ItemsSource = fileCollection;
-
-			List<Encoding> encodings = new List<Encoding> ();
-			foreach ( var encoding in Encoding.GetEncodings () )
-				encodings.Add ( Encoding.GetEncoding ( encoding.CodePage ) );
-			encodings.Sort ( ( enc1, enc2 ) => { return enc1.WebName.CompareTo ( enc2.WebName ); } );
-
-			comboBoxOriginal.ItemsSource = encodings;
-			comboBoxTarget.ItemsSource = encodings;
+			
+			comboBoxOriginal.ItemsSource = Encodings;
+			comboBoxTarget.ItemsSource = Encodings;
 		}
 
 		protected override void OnClosed ( EventArgs e )
@@ -156,8 +175,8 @@ namespace Daramkun.DaramTextEncoder
 							case "utf-8": stream.Write ( new byte [] { 0xEF, 0xBB, 0xBF }, 0, 3 ); break;
 							case "utf-16": stream.Write ( new byte [] { 0xFF, 0xFE }, 0, 2 ); break;
 							case "utf-32": stream.Write ( new byte [] { 0xFF, 0xFE, 0, 0 }, 0, 4 ); break;
-							case "utf-16BE": stream.Write ( new byte [] { 0xFE, 0xFF }, 0, 2 ); break;
-							case "utf-32BE": stream.Write ( new byte [] { 0, 0, 0xFE, 0xFF }, 0, 4 ); break;
+							case "utf-16be": stream.Write ( new byte [] { 0xFE, 0xFF }, 0, 2 ); break;
+							case "utf-32be": stream.Write ( new byte [] { 0, 0, 0xFE, 0xFF }, 0, 4 ); break;
 						}
 					}
 
@@ -168,6 +187,11 @@ namespace Daramkun.DaramTextEncoder
 			}
 
 			SimpleDoneMessage ( "모든 파일에 대해 인코딩을 변환하였습니다." );
+		}
+
+		private void Button_FindCorrectEncoding_Click ( object sender, RoutedEventArgs e )
+		{
+			new FindCorrectEncodingWindow ().Show ();
 		}
 
 		private void Button_Information_Click ( object sender, RoutedEventArgs e )

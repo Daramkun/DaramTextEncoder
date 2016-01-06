@@ -8,6 +8,7 @@
 	<Window.Resources>
 		<vc:NameValueConverter x:Key="nameValueConverter" />
 		<vc:PathValueConverter x:Key="pathValueConverter" />
+		<vc:ToUpperValueConverter x:Key="toUpperValueConverter" />
 	</Window.Resources>
 	
     <Grid>
@@ -30,11 +31,11 @@
 				
 				<Separator />
 
-				<TextBlock Text="원본 파일 인코딩:" Margin="0,0,5,0" VerticalAlignment="Center" />
-				<ComboBox Name="comboBoxOriginal" Width="68">
+				<TextBlock Text="원본 인코딩:" Margin="0,0,5,0" VerticalAlignment="Center" />
+				<ComboBox Name="comboBoxOriginal" Width="66">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding Path=WebName}" />
+							<TextBlock Text="{Binding Path=WebName, Converter={StaticResource toUpperValueConverter}}" />
 						</DataTemplate>
 					</ComboBox.ItemTemplate>
 				</ComboBox>
@@ -42,10 +43,10 @@
 				<Separator />
 
 				<TextBlock Text="적용할 인코딩:" Margin="0,0,5,0" VerticalAlignment="Center" />
-				<ComboBox Name="comboBoxTarget" Width="68">
+				<ComboBox Name="comboBoxTarget" Width="66">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
-							<TextBlock Text="{Binding Path=WebName}" />
+							<TextBlock Text="{Binding Path=WebName, Converter={StaticResource toUpperValueConverter}}" />
 						</DataTemplate>
 					</ComboBox.ItemTemplate>
 				</ComboBox>
@@ -53,8 +54,14 @@
 				<Separator />
 
 				<CheckBox Name="checkBoxBOM" Content="BOM" IsChecked="{Binding Source={x:Static setting:Settings.Default}, Path=AddBOM}" />
-				<CheckBox Name="checkBoxOverwrite" Content="덮어쓰기" IsChecked="{Binding Source={x:Static setting:Settings.Default}, Path=Overwrite}" />
+				<CheckBox Name="checkBoxOverwrite" Content="덮어씀" IsChecked="{Binding Source={x:Static setting:Settings.Default}, Path=Overwrite}" />
 				
+				<Separator />
+
+				<Button Click="Button_FindCorrectEncoding_Click">
+					<Image Source="Resources/page_white_code_red.png" />
+				</Button>
+
 				<Separator />
 
 				<Button Click="Button_Information_Click">
